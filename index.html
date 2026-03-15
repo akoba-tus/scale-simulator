@@ -22,11 +22,12 @@
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 h-screen flex flex-col overflow-hidden">
+<!-- モバイルではmin-h-screenで伸びるようにし、PC(md以上)ではh-screenで固定 -->
+<body class="bg-slate-100 text-slate-800 flex flex-col min-h-screen md:h-screen md:overflow-hidden">
 
     <!-- JSON Upload Overlay -->
     <div id="upload-overlay">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center mx-4">
             <h2 class="text-4xl font-extrabold text-gray-800 mb-2 tracking-tight">SCALE</h2>
             <p class="text-blue-600 mb-6 font-bold tracking-wide">ScAlN Lattice Explorer</p>
             <p class="text-gray-600 mb-6 text-sm leading-relaxed">Please upload the ScAlN lattice constant grid file (in JSON format).</p>
@@ -36,7 +37,17 @@
                 <input type="file" id="json-upload" accept=".json" class="hidden">
             </label>
             <p id="upload-status" class="mt-4 text-sm font-semibold text-blue-600"></p>
-        </div>
+
+            <div class="mt-8 pt-4 border-t border-gray-200 text-center">
+                <p class="text-sm text-gray-600 mb-1">Looking for a test file?</p>
+                <p class="text-sm text-gray-600">
+                    Please download the sample data from 
+                    <a href="https://github.com/akoba-tus/scale-simulator" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-blue-700 underline font-medium transition-colors">
+                        https://github.com/akoba-tus/scale-simulator
+                    </a>
+                </p>
+            </div>
+            </div>
     </div>
 
     <!-- Header -->
@@ -54,10 +65,12 @@
     </header>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col md:flex-row overflow-hidden p-2 sm:p-4 gap-4" id="main-content" style="opacity: 0.2; pointer-events: none;">
+    <!-- モバイルではoverflow-hiddenを解除し、スクロール可能に -->
+    <div class="flex-1 flex flex-col md:flex-row p-2 sm:p-4 gap-4 md:overflow-hidden" id="main-content" style="opacity: 0.2; pointer-events: none;">
         
         <!-- Sidebar Controls -->
-        <aside class="w-full md:w-80 glass-panel rounded-xl flex flex-col shrink-0 overflow-y-auto">
+        <!-- モバイルでは高さを内容に合わせるためoverflow-y-autoをmd:に限定 -->
+        <aside class="w-full md:w-80 glass-panel rounded-xl flex flex-col shrink-0 md:overflow-y-auto">
             <div class="p-4 border-b border-gray-200">
                 <h2 class="text-base font-bold text-gray-700 mb-3 flex items-center">
                     <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
@@ -117,7 +130,7 @@
         </aside>
 
         <!-- Charts Area -->
-        <main class="flex-1 flex flex-col xl:flex-row gap-4 overflow-y-auto md:overflow-hidden relative">
+        <main class="flex-1 flex flex-col xl:flex-row gap-4 relative md:overflow-hidden">
             <div class="flex-1 glass-panel rounded-xl relative min-h-[350px] xl:min-h-0">
                 <div id="plot2d" class="absolute inset-2"></div>
             </div>
